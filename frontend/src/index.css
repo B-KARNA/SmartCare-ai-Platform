@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base resets ── */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #008080;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #006B6B;
+}
+
+/* ── Glassmorphism utility ── */
+.glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ── Agent connection lines (SVG) ── */
+.agent-line {
+    stroke-dasharray: 8 4;
+    animation: line-flow 1.5s linear infinite;
+}
+
+@keyframes line-flow {
+    to {
+        stroke-dashoffset: -24;
+    }
+}
+
+/* ── Gradient text ── */
+.gradient-text {
+    background: linear-gradient(135deg, #00D4FF 0%, #008080 50%, #10B981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Glow effects ── */
+.glow-teal {
+    box-shadow: 0 0 20px rgba(0, 128, 128, 0.3), 0 0 60px rgba(0, 128, 128, 0.1);
+}
+
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 60px rgba(0, 212, 255, 0.1);
+}
+
+/* ── Section fade-in on scroll ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Animated ring for Health Score ── */
+.score-ring {
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+.score-ring-bg {
+    stroke: rgba(0, 128, 128, 0.15);
+}
+
+.score-ring-fg {
+    stroke: url(#score-gradient);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s ease-in-out;
+}
+
+/* ── Modal backdrop ── */
+.modal-backdrop {
+    background: rgba(0, 15, 30, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* ── Pricing card popular glow ── */
+.pricing-popular {
+    position: relative;
+}
+
+.pricing-popular::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #008080, #00D4FF, #10B981);
+    z-index: -1;
+    opacity: 0.7;
+    filter: blur(8px);
+}
+
+/* ── Dashboard mock shadow ── */
+.dashboard-shadow {
+    box-shadow:
+        0 25px 60px -12px rgba(0, 0, 0, 0.25),
+        0 0 40px rgba(0, 128, 128, 0.1);
+}
+
+/* ── Button shine effect ── */
+.btn-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right,
+            transparent 0%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 100%);
+    transform: rotate(30deg) translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn-shine:hover::after {
+    transform: rotate(30deg) translateX(100%);
+}

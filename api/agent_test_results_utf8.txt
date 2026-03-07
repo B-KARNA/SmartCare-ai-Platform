@@ -1,0 +1,21 @@
+﻿
+--- Testing Symptom Agent ---
+{
+  "intent": "symptom_analysis",
+  "agent_assigned": "Symptom Agent",
+  "response": "[ROUTED: SYMPTOMS] I'm sorry you're not feeling well. Based on what you described, it doesn't appear to be an immediate emergency. I've noted your symptoms in your health vault.\n\nPlease rest and stay hydrated. If your condition worsens or you experience shortness of breath, chest pain, or severe weakness, please let me know immediately or press the SOS button."
+}
+
+--- Testing Emergency Routing ---
+{
+  "intent": "emergency",
+  "agent_assigned": "Emergency Coordinator",
+  "response": "[ROUTED: EMERGENCY] Please contact emergency services immediately or use the SOS button!"
+}
+
+--- Testing Report Agent ---
+{
+  "intent": "general_wellness",
+  "agent_assigned": "Wellness Counselor",
+  "response": "[ROUTED: WELLNESS] How can I support your health and well-being today?"
+}

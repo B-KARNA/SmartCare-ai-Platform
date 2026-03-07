@@ -1,0 +1,35 @@
+﻿
+--- Testing Symptom Agent ---
+{
+  "intent": "symptom_analysis",
+  "agent_assigned": "Symptom Agent",
+  "response": "[ROUTED: SYMPTOMS] I'm sorry you're not feeling well. Based on what you described, it doesn't appear to be an immediate emergency. I've noted your symptoms in your health vault.\n\nPlease rest and stay hydrated. If your condition worsens or you experience shortness of breath, chest pain, or severe weakness, please let me know immediately or press the SOS button."
+}
+
+--- Testing Emergency Routing ---
+{
+  "intent": "emergency",
+  "agent_assigned": "Emergency Coordinator",
+  "response": "[ROUTED: EMERGENCY] Please contact emergency services immediately or use the SOS button!"
+}
+
+--- Testing Report Agent ---
+{
+  "intent": "report_extraction",
+  "agent_assigned": "Report Agent",
+  "response": "[ROUTED: REPORT ANALYZED]\nI have analyzed your report. Here is a simplified breakdown:\n\u2022 **Hemoglobin**: 10.2 g/dL is **LOW** (Normal: 13.0-17.0). Red blood cell protein for oxygen transport.\n\n**Note**: You have some out-of-range values. Please consult your doctor for a professional medical opinion."
+}
+
+--- Testing Prescription Agent ---
+{
+  "intent": "prescription_help",
+  "agent_assigned": "Prescription Agent",
+  "response": "[ROUTED: PRESCRIPTIONS]\nI see you're asking about a refill. I've checked your active prescriptions. Your **Metformin 500mg** is due for a refill on **March 15, 2026**. Would you like me to send a request to Dr. Meena Patel's office?"
+}
+
+--- Testing Wellness Agent ---
+{
+  "intent": "wellness",
+  "agent_assigned": "Wellness Agent",
+  "response": "[ROUTED: WELLNESS]\n### \ud83d\udc93 Cardiovascular Risk: LOW (22%)\nBased on your latest vitals (BP: 118/76) and active lifestyle, your risk is currently low. To maintain this, I recommend:\n- 150 minutes of moderate aerobic activity per week.\n- Maintaining your current intake of Omega-3 fatty acids."
+}

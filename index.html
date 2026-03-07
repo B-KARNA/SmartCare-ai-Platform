@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-accessibility="">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="MedVault — Your AI-powered medical super-app for health tracking, secure records, and emergency assistance." />
+  <title>MedVault — Medical Super-App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+  <!-- ==================== APP SHELL ==================== -->
+  <div id="app">
+
+    <!-- Top Bar -->
+    <header id="top-bar">
+      <div class="top-bar-left">
+        <div class="app-logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="url(#logo-grad)" />
+            <path d="M14 6v16M6 14h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="28" y2="28">
+                <stop stop-color="#0052CC" />
+                <stop offset="1" stop-color="#00B8D9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="app-title">MedVault</h1>
+          <p class="app-subtitle" id="greeting-text">Good Evening</p>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <button id="btn-settings" class="icon-btn" aria-label="Settings">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+          </svg>
+        </button>
+        <div class="avatar" id="user-avatar">
+          <span>BK</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== PAGE SECTIONS ==================== -->
+
+    <!-- HOME / Dashboard -->
+    <section id="page-home" class="page active">
+      <div class="page-content" id="home-content">
+        <!-- Populated by home.js -->
+      </div>
+    </section>
+
+    <!-- AI Chat -->
+    <section id="page-chat" class="page">
+      <div class="page-content" id="chat-content">
+        <!-- Populated by chat.js -->
+      </div>
+    </section>
+
+    <!-- Reports -->
+    <section id="page-reports" class="page">
+      <div class="page-content" id="reports-content">
+        <!-- Populated by reports.js -->
+      </div>
+    </section>
+
+    <!-- Emergency -->
+    <section id="page-emergency" class="page">
+      <div class="page-content" id="emergency-content">
+        <!-- Populated by emergency.js -->
+      </div>
+    </section>
+
+    <!-- Mental Health -->
+    <section id="page-mentalhealth" class="page">
+      <div class="page-content" id="mentalhealth-content">
+        <!-- Populated by mentalHealth.js -->
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="page-settings" class="page">
+      <div class="page-content" id="settings-content">
+        <!-- Populated by settings.js -->
+      </div>
+    </section>
+
+    <!-- ==================== BOTTOM NAV ==================== -->
+    <nav id="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-page="home" id="nav-home">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-page="chat" id="nav-chat">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+        </svg>
+        <span class="nav-label">AI Chat</span>
+      </button>
+      <button class="nav-item" data-page="mentalhealth" id="nav-mentalhealth">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+        </svg>
+        <span class="nav-label">Mental</span>
+      </button>
+      <button class="nav-item" data-page="reports" id="nav-reports">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+        </svg>
+        <span class="nav-label">Reports</span>
+      </button>
+      <button class="nav-item" data-page="emergency" id="nav-emergency">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <span class="nav-label">Emergency</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
