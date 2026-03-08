@@ -5,10 +5,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-try:
-    from .models import Base
-except ImportError:
-    from models import Base
+from models import Base
 
 
 # Detect production database (PostgreSQL/Supabase)

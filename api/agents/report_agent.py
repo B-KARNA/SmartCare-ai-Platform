@@ -20,7 +20,7 @@ class ReportAgent:
         """
         Fetches the last N interactions involving this agent to provide context.
         """
-        from ..models import ChatInteraction
+        from models import ChatInteraction
         if self.db_session:
              return self.db_session.query(ChatInteraction).filter(
                 ChatInteraction.user_id == user_id, 
