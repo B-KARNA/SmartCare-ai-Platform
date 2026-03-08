@@ -17,14 +17,15 @@ from auth import create_access_token, get_current_user, get_optional_user
 
 app = FastAPI(title="Aegis Health API", version="3.0.0")
 
-# CORS setup for the Vite frontend
+# CORS setup for the Vite frontend (Permissive for Vercel/Production)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173", "http://127.0.0.1:5174"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Initialize the database on startup
 @app.on_event("startup")
@@ -138,17 +139,25 @@ async def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @app.post("/api/auth/login", response_model=Token)
 async def login(creds: LoginRequest, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.email == creds.email).first()
-    if not db_user or not pwd_context.verify(creds.password, db_user.hashed_password):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+    try:
+        db_user = db.query(User).filter(User.email == creds.email).first()
+        if not db_user or not pwd_context.verify(creds.password, db_user.hashed_password):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+        token = create_access_token(data={"user_id": db_user.id, "email": db_user.email})
+        name = db_user.get_name() if db_user.encrypted_name else "User"
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+            "user": {"id": db_user.id, "email": db_user.email, "name": name}
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Database or Server Error: {str(e)}")
 
-    token = create_access_token(data={"user_id": db_user.id, "email": db_user.email})
-    name = db_user.get_name() if db_user.encrypted_name else "User"
-    return {
-        "access_token": token,
-        "token_type": "bearer",
-        "user": {"id": db_user.id, "email": db_user.email, "name": name}
-    }
 
 @app.get("/api/auth/me")
 async def get_me(current_user: User = Depends(get_current_user)):
