@@ -2,6 +2,10 @@
 # FastAPI Backend & Master Router Agent (Connected to SQLite)
 # ============================================================
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
