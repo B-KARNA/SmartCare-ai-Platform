@@ -385,9 +385,10 @@ from fastapi import UploadFile, File
 import shutil
 import os
 
-UPLOAD_DIR = "uploads"
+UPLOAD_DIR = "/tmp/uploads"
 if not os.path.exists(UPLOAD_DIR):
-    os.makedirs(UPLOAD_DIR)
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 
 @app.post("/api/reports/upload")
 async def upload_report(
