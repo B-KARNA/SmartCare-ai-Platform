@@ -109,7 +109,7 @@ async def register(user: UserCreate, db: Session = Depends(get_db)):
         if existing:
             raise HTTPException(status_code=400, detail="Email already registered")
 
-        from models import encrypt_pii
+        from .models import encrypt_pii
         new_user = User(
             email=user.email,
             hashed_password=pwd_context.hash(user.password),

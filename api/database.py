@@ -16,8 +16,8 @@ if DATABASE_URL:
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     engine = create_engine(DATABASE_URL)
 else:
-    # Local Development (SQLite)
-    DATABASE_URL = "sqlite:///./medvault.db"
+    # Local Development (SQLite) - Safely use /tmp for Vercel environments if env is missing
+    DATABASE_URL = "sqlite:////tmp/medvault.db"
     engine = create_engine(
         DATABASE_URL,
         connect_args={"check_same_thread": False}

@@ -24,7 +24,7 @@ class SymptomAgent:
         """
         Fetches the last N interactions to provide context-aware responses.
         """
-        from models import ChatInteraction
+        from ..models import ChatInteraction
         if self.db_session:
             return self.db_session.query(ChatInteraction).filter(
                 ChatInteraction.user_id == user_id, 
