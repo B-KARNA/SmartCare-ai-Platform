@@ -11,9 +11,9 @@ import re, json
 from datetime import datetime, timedelta
 
 # Local imports
-from database import get_db, init_db
-from models import User, HealthHistory, MedicalReport, Medication, ChatInteraction
-from auth import create_access_token, get_current_user, get_optional_user
+from .database import get_db, init_db
+from .models import User, HealthHistory, MedicalReport, Medication, ChatInteraction
+from .auth import create_access_token, get_current_user, get_optional_user
 
 app = FastAPI(title="Aegis Health API", version="3.0.0")
 
@@ -361,12 +361,12 @@ async def get_chat_history(user_id: int, db: Session = Depends(get_db)):
 # ---------------------------------------------------------
 # 6. Multi-Agent Master Router Logic
 # ---------------------------------------------------------
-from agents.report_agent import ReportAgent
-from agents.symptom_agent import SymptomAgent
-from agents.mental_health_agent import MentalHealthAgent
-from agents.prescription_agent import PrescriptionAgent
-from agents.wellness_agent import WellnessAgent
-from agents.risk_agent import RiskAgent
+from .agents.report_agent import ReportAgent
+from .agents.symptom_agent import SymptomAgent
+from .agents.mental_health_agent import MentalHealthAgent
+from .agents.prescription_agent import PrescriptionAgent
+from .agents.wellness_agent import WellnessAgent
+from .agents.risk_agent import RiskAgent
 
 INTENT_MAP = {
     "emergency": {"agent": "Emergency Coordinator", "keywords": [r"heart attack", r"bleeding", r"chest pain", r"sos", r"unconscious", r"choking", r"stroke", r"help me", r"emergency"]},
