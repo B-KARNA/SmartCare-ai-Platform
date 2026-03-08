@@ -140,17 +140,33 @@ async def register(user: UserCreate, db: Session = Depends(get_db)):
 @app.post("/api/auth/login", response_model=Token)
 async def login(creds: LoginRequest, db: Session = Depends(get_db)):
     try:
+        print(f"DEBUG: Login attempt for email: {creds.email}")
         db_user = db.query(User).filter(User.email == creds.email).first()
-        if not db_user or not pwd_context.verify(creds.password, db_user.hashed_password):
+        
+        if not db_user:
+            print(f"DEBUG: User not found: {creds.email}")
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+            
+        if not pwd_context.verify(creds.password, db_user.hashed_password):
+            print(f"DEBUG: Password verification failed for: {creds.email}")
+            # Check if it might be an old SHA256 hash
+            import hashlib
+            sha_hash = hashlib.sha256(creds.password.encode()).hexdigest()
+            if db_user.hashed_password == sha_hash:
+                print(f"DEBUG: Found legacy SHA256 hash. User needs to be re-seeded or password updated.")
+                raise HTTPException(status_code=401, detail="Account requires security update. Please re-register or contact support.")
+            
             raise HTTPException(status_code=401, detail="Invalid credentials")
     
         token = create_access_token(data={"user_id": db_user.id, "email": db_user.email})
         name = db_user.get_name() if db_user.encrypted_name else "User"
+        print(f"DEBUG: Login successful for: {creds.email}")
         return {
             "access_token": token,
             "token_type": "bearer",
             "user": {"id": db_user.id, "email": db_user.email, "name": name}
         }
+
     except HTTPException:
         raise
     except Exception as e:
