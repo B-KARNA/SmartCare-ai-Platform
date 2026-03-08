@@ -105,24 +105,36 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 @app.post("/api/auth/register", response_model=Token)
 async def register(user: UserCreate, db: Session = Depends(get_db)):
     try:
+        print(f"DEBUG: Registration attempt for email: {user.email}")
         existing = db.query(User).filter(User.email == user.email).first()
         if existing:
+            print(f"DEBUG: Email already registered: {user.email}")
             raise HTTPException(status_code=400, detail="Email already registered")
 
+        print("DEBUG: Hashing password and encrypting PII...")
         from .models import encrypt_pii
+        
+        hashed_pw = pwd_context.hash(user.password)
+        enc_name = encrypt_pii(user.name)
+        enc_phone = encrypt_pii(user.phone or "")
+        
+        print("DEBUG: Creating user object...")
         new_user = User(
             email=user.email,
-            hashed_password=pwd_context.hash(user.password),
-            encrypted_name=encrypt_pii(user.name),
-            encrypted_phone=encrypt_pii(user.phone or ""),
+            hashed_password=hashed_pw,
+            encrypted_name=enc_name,
+            encrypted_phone=enc_phone,
             accessibility_mode=json.dumps(user.accessibility_needs) if user.accessibility_needs else None,
             emergency_contact_name=user.emergency_contact_name,
             emergency_contact_phone=user.emergency_contact_phone,
             emergency_relationship=user.emergency_relationship,
         )
+        
+        print("DEBUG: Adding user to session...")
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
+        print(f"DEBUG: User created successfully with ID: {new_user.id}")
 
         # Generate real JWT
         token = create_access_token(data={"user_id": new_user.id, "email": new_user.email})
@@ -133,8 +145,10 @@ async def register(user: UserCreate, db: Session = Depends(get_db)):
         }
     except Exception as e:
         import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        error_trace = traceback.format_exc()
+        print(f"DEBUG: Registration Error: {str(e)}\n{error_trace}")
+        raise HTTPException(status_code=500, detail=f"Registration Error: {str(e)}")
+
 
 
 @app.post("/api/auth/login", response_model=Token)
