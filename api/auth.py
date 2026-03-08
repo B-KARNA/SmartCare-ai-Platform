@@ -7,8 +7,11 @@ from typing import Optional
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlalchemy.orm import Session
-from .database import get_db
+try:
+    from .database import get_db
+except ImportError:
+    from database import get_db
+
 
 import os
 # ── Configuration ──
@@ -43,7 +46,10 @@ def decode_token(token: str) -> dict:
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
     """FastAPI dependency: extract and validate the current user from JWT."""
-    from .models import User
+    try:
+        from .models import User
+    except ImportError:
+        from models import User
     payload = decode_token(credentials.credentials)
     user_id = payload.get("user_id")
     if user_id is None:
@@ -59,7 +65,10 @@ async def get_optional_user(credentials: Optional[HTTPAuthorizationCredentials] 
     if not credentials:
         return None
     try:
-        from .models import User
+        try:
+            from .models import User
+        except ImportError:
+            from models import User
         payload = decode_token(credentials.credentials)
         user_id = payload.get("user_id")
         if user_id:

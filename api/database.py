@@ -5,7 +5,11 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .models import Base
+try:
+    from .models import Base
+except ImportError:
+    from models import Base
+
 
 # Detect production database (PostgreSQL/Supabase)
 DATABASE_URL = os.getenv("DATABASE_URL")
